@@ -68,3 +68,73 @@
     Variáveis em escala diferentes
     Formula Padronização Z-Score: Dados próximos a uma distribuição normal, existe outliers
     Formula Normalização Min-Max: Quando não sabemos a distribuição, desconsidera outliers
+
+6 - Agrupamentos
+    Usado quando não supervisionado
+    Necessário criar grupos de classes sobre as atribuições
+        Agrupamento completo
+        Agrupamento parcial
+        Agrupamento difuso
+        Agrupamento hierarquico
+        O que não é agrupado é caracterizado como ruído
+    k-means e k-medoid
+        baseado em protótipos
+        grupos definidos
+        define o centróides (pontos iniciais)
+        utiliza distância euclidiana
+        k-means
+            protitipado em cima de centróides, média de grupo de pontos
+        k-medoid
+            prototipado em cima de medóides, ponto mais representativo
+    DBSCAN
+        baseado em densidade
+        numero de grupos definidos automaticamente
+        a densidade é baseada no raio especificado
+    hierarquico
+        baseado em aglomeração um grupo
+        baseado em divisiva um outro grupo
+    
+7 - Regras de associação
+    estabelece um minimo de suporte, confiança e lift de associação de regra
+    apriori e fp-grow são algoritmos de redes neurais usada para regras de associaçao
+
+8 - Regressão Linear
+    eixo y = variavel de resposta ou dependente
+    eixo x = variavel explanatoria ou independente
+
+    calculo de correlação
+        valor entre -1 e 1
+        força e direção
+    
+    coeficiente de determinação
+    r ao quadrado
+
+    ponto de intersecção é o encontro da linha no eixo Y, onde o X=0
+    inclinação é o ângulo, a cada aumento de X o Y aumenta
+
+    calculos de previsão:
+        p = intersecção + (inclinação * valor a prever)
+    
+    calculos de residuais:
+        histograma
+        diagrama de normalidade
+        teste de shapiro-wilk
+    
+    simples: uma variavel explanatoria para uma variavel dependente
+        ex: plano de saude, idade para identificar valor de custo
+    
+    multipla: duas ou mais variaveis explanatoria para uma variavel dependente
+        ex: desempenho de um carro, tenho variavel de combustivel, pressão dos pneus, temperatura do motor, etc
+        aqui é necessario calcular cada regressão entre x e y
+        aqui usamos o r ao quadrado ajustado
+
+        colinearidade são duas variaveis independentes que possuem correlação
+        parcimonia é o ato de evitar o uso de váriaveis que não afetam o modelo em nada
+
+        sequência de cálculo, pois possuem uma dependência entre eles:
+            correlação > inclinação > intersecção > previsão
+
+        correlação de person para termos o valor da correlação
+        inclinação = correlação(desvio padrão de X / desvio padrão de Y)
+        intersecção = média de Y - (inclinação * média de X)
+        previsão = intersecção + (inclinação * variável independente)
