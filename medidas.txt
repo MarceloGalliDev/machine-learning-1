@@ -1,0 +1,10 @@
+- Palete
+x = 1
+y = 1
+
+- Passo
+x = 1 | y = 1
+
+- Espaço
+x = 24 
+y = 14
