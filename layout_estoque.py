@@ -2,6 +2,11 @@
 
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon, Point
+import tkinter as tk
+from tkinter import simpledialog
+
+
+quadrados_selecionados = []
 
 
 def gerar_quadrados(largura, altura):
@@ -17,6 +22,19 @@ def gerar_quadrados(largura, altura):
     return quadrados
 
 
+def abrir_dialogo():
+    root = tk.Tk()
+    root.withdraw()
+    produto = simpledialog.askstring("Informação do Produto", "Digite o nome do produto:")
+    codigo = simpledialog.askstring("Informação do Produto", "Digite o código do produto:")
+    andar = simpledialog.askstring("Informação do Produto", "Digite o andar do produto:")
+    root.destroy()
+    if produto and codigo and andar:
+        return {"produto": produto, "codigo": codigo, "andar": andar}
+    return None
+
+
+
 def on_click(event):
     x_click = event.xdata
     y_click = event.ydata
@@ -27,12 +45,25 @@ def on_click(event):
         quadrado = quadrado_info["quadrado"]
         artista = quadrado_info["artista"]
         if quadrado.contains(Point(x_click, y_click)):
-            # Alterar a cor do quadrado selecionado
-            artista.set_facecolor('blue')
-            artista.set_alpha(0.5)  # Aumentar opacidade se necessário
-            print(f"Quadrado selecionado: {quadrado_info['nome']}")
+            if quadrado_info.get("selecionado", False):
+                quadrado_info["selecionado"] = False
+                artista.set_facecolor(quadrado_info["cor"])
+                artista.set_alpha(0.2)
+                if quadrado_info["nome"] in quadrados_selecionados:
+                    quadrados_selecionados.remove(quadrado_info["nome"])
+                if "produto_info" in quadrado_info:
+                    del quadrado_info["produto_info"]
+            else:
+                info_produto = abrir_dialogo()
+                if info_produto:
+                    quadrado_info["selecionado"] = True
+                    artista.set_facecolor('blue')
+                    artista.set_alpha(0.5)
+                    quadrado_info["produto_info"] = info_produto
+                    quadrados_selecionados.append(quadrado_info["nome"])
             break
     plt.draw()
+    print("Quadrados selecionados:", quadrados_selecionados)
 
 
 plano_estoque = Polygon([(0, 0), (30, 0), (30, 20), (0, 20)])
