@@ -2,8 +2,6 @@
 
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon, Point
-import tkinter as tk
-from tkinter import simpledialog
 
 
 quadrados_selecionados = []
@@ -20,19 +18,6 @@ def gerar_quadrados(largura, altura):
             quadrados.append({"quadrado": quadrado, "nome": nome, "cor": cor})
             nome_sequencia += 1
     return quadrados
-
-
-def abrir_dialogo():
-    root = tk.Tk()
-    root.withdraw()
-    produto = simpledialog.askstring("Informação do Produto", "Digite o nome do produto:")
-    codigo = simpledialog.askstring("Informação do Produto", "Digite o código do produto:")
-    andar = simpledialog.askstring("Informação do Produto", "Digite o andar do produto:")
-    root.destroy()
-    if produto and codigo and andar:
-        return {"produto": produto, "codigo": codigo, "andar": andar}
-    return None
-
 
 
 def on_click(event):
@@ -59,7 +44,7 @@ def on_click(event):
                     quadrado_info["selecionado"] = True
                     artista.set_facecolor('blue')
                     artista.set_alpha(0.5)
-                    quadrado_info["produto_info"] = info_produto
+                    # quadrado_info["produto_info"] = info_produto
                     quadrados_selecionados.append(quadrado_info["nome"])
             break
     plt.draw()
@@ -107,8 +92,8 @@ for estante in estantes_v:
     # Calculando o centroide da estante para posicionar o nome
     centroide = estante["poligono"].centroid
     plt.text(
-        centroide.x, 
-        centroide.y, 
+        centroide.x,
+        centroide.y,
         f'Estante {estante["nome"]}',
         horizontalalignment='center',
         verticalalignment='center',
